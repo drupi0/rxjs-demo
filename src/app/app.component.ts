@@ -11,6 +11,8 @@ interface Circle {
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+
+
   mergeArray: Circle[] = [];
   forkJoinArray: Circle[] = [];
   combineLatestArray: Circle[] = [];
@@ -18,6 +20,42 @@ export class AppComponent {
   trackOne = interval(1000).pipe(take(3));
   trackTwo = interval(500).pipe(take(3));
   trackThree = interval(200).pipe(take(3));
+
+  runMap() {
+
+  }
+
+  runPluck() {
+
+  }
+
+  runSwitchMap() {
+
+  }
+
+  runConcatMap() {
+
+  }
+
+  runMergeMap() {
+
+  }
+
+  runTap() {
+
+  }
+
+  runDebounceTime() {
+
+  }
+
+  runDistinctUntilChange() {
+
+  }
+
+  runCatchError() {
+
+  }
 
   runMerge() {
     this.mergeArray = [];
@@ -30,8 +68,6 @@ export class AppComponent {
   runForkJoin() {
     this.forkJoinArray = [];
 
-    
-
     forkJoin(this.circleObservable()).subscribe((i) => {
       this.forkJoinArray.push(...i);
     });
@@ -42,6 +78,14 @@ export class AppComponent {
     combineLatest(this.circleObservable()).subscribe((i) => {
       this.combineLatestArray.push(...i);
     });
+  }
+
+  runZip() {
+
+  }
+
+  runThrottleTime() {
+
   }
 
   private circleObservable(): Observable<Circle>[] {
