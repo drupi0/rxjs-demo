@@ -1,0 +1,35 @@
+<div class="border rounded-lg shadow-md p-4 m-3 bg-white">
+  <div class="flex">
+    <span class="text-4xl font-bold"> {{ title }}</span>
+    <div class="flex-grow text-right self-end">
+      <span *ngIf="isDeprecated" class="border rounded-lg text-red-700 bg-red-100 py-1 px-2">Deprecated</span>
+    </div>
+  </div>
+  <div class="flex border-t mt-2 pt-3">
+    <div class="w-1/2 text-xl">
+      {{ details }}
+    </div>
+    <div class="w-1/2">
+      <div class="text-sm border rounded-lg p-3 overflow-auto">
+        <pre><code> {{ snippet }}</code></pre>
+      </div>
+    </div>
+  </div>
+  <div class="h-40 my-10 pt-10">
+    <div class="flex align-middle justify-center gap-2">
+      <ng-container *ngFor="let out of output">
+        <div class="circle bg-green-300" *ngIf="typeofObj(out) !== 'object'; else showObj">
+          {{ out }}
+        </div>
+        <ng-template #showObj>
+          <div class="border rounded-md p-3">
+            {{ out | json }}
+          </div>
+        </ng-template>
+      </ng-container>
+    </div>
+  </div>
+  <div class="flex justify-end">
+    <button class="border rounded-md p-2 active:bg-blue-100 hover:bg-blue-50" (click)="testRun()" id="runTestBtn">Run Test</button>
+  </div>
+</div>

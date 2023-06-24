@@ -1,116 +1,59 @@
-import { Component } from '@angular/core';
-import { Observable, combineLatest, concatAll, forkJoin, interval, map, merge, switchMap, take, tap } from 'rxjs';
+import { KeyValue } from '@angular/common';
+import { AfterViewInit, Component, HostListener, OnDestroy } from '@angular/core';
+import { Observable, Subject, combineLatest, concatAll, forkJoin, fromEvent, interval, map, merge, of, switchMap, take, takeUntil, tap } from 'rxjs';
+import { OPERATORS_INFO, OperatorInfo } from 'src/models';
 
 interface Circle {
   color: string,
   name: string,
 };
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements AfterViewInit, OnDestroy {
+  operatorsInfo: Record<string, OperatorInfo> = OPERATORS_INFO;
+  destroy$: Subject<void> = new Subject();
 
+  pageHeight = 0;
 
-  mergeArray: Circle[] = [];
-  forkJoinArray: Circle[] = [];
-  combineLatestArray: Circle[] = [];
-
-  trackOne = interval(1000).pipe(take(3));
-  trackTwo = interval(500).pipe(take(3));
-  trackThree = interval(200).pipe(take(3));
-
-  runMap() {
-
+  originalOrder = (a: KeyValue<string, OperatorInfo>, b: KeyValue<string, OperatorInfo>): number => {
+    return 0;
   }
 
-  runPluck() {
+  ngAfterViewInit(): void {
+    fromEvent(window, "scroll").pipe(takeUntil(this.destroy$)).subscribe((event: Event) => {
+      event.preventDefault();
+      event.stopImmediatePropagation();
+    });
 
+    fromEvent(document, "keydown").pipe(takeUntil(this.destroy$)).subscribe((event: Event) => {
+      event.preventDefault();
+      event.stopImmediatePropagation();
+     this.onScroll(event as KeyboardEvent);
+  });
   }
 
-  runSwitchMap() {
-
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
-  runConcatMap() {
+  onScroll(event: KeyboardEvent) {
+    const { key } = event;
 
-  }
+    if(key.toUpperCase().includes("UP")) {
+      if(this.pageHeight > 0) {
+        this.pageHeight -= window.innerHeight;
+      }
+    } else if(key.toUpperCase().includes("DOWN")) {
+      this.pageHeight += window.innerHeight;
+    }
 
-  runMergeMap() {
-
-  }
-
-  runTap() {
-
-  }
-
-  runDebounceTime() {
-
-  }
-
-  runDistinctUntilChange() {
-
-  }
-
-  runCatchError() {
-
-  }
-
-  runMerge() {
-    this.mergeArray = [];
-
-    merge(...this.circleObservable()).subscribe((i) => {
-      this.mergeArray.push(i);
+    window.scrollTo({
+      top: this.pageHeight
     });
   }
-
-  runForkJoin() {
-    this.forkJoinArray = [];
-
-    forkJoin(this.circleObservable()).subscribe((i) => {
-      this.forkJoinArray.push(...i);
-    });
-  }
-
-  runCombineLatest() {
-    this.combineLatestArray = [];
-    combineLatest(this.circleObservable()).subscribe((i) => {
-      this.combineLatestArray.push(...i);
-    });
-  }
-
-  runZip() {
-
-  }
-
-  runThrottleTime() {
-
-  }
-
-  private circleObservable(): Observable<Circle>[] {
-    const uno = this.trackOne.pipe(map((i) => {
-      return {
-        color: 'red',
-        name: i.toString()
-      }
-    }));
-
-    const dos = this.trackTwo.pipe(map((i) => {
-      return {
-        color: 'green',
-        name: i.toString()
-      }
-    }));
-
-    const tres = this.trackThree.pipe(map((i) => {
-      return {
-        color: 'blue',
-        name: i.toString()
-      }
-    }));
-
-    return [uno, dos, tres];
-  }
-
 }

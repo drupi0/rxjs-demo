@@ -1,84 +1,39 @@
-<h3>Map</h3><button (click)="runMap()">Run Test</button>
-<div class="container">
-  <div class="circle m-md" *ngFor="let circle of mergeArray" [ngClass]="circle.color"><span>{{ circle.name }}</span>
+<section class="w-screen h-screen pt-20 bg-gray-800">
+  <div class="flex w-full">
+    <div class="p-4">
+      <div class="ml-32 mt-32">
+        <h1 class="text-9xl text-white">All About RXJS</h1>
+        <h2 class="text-5xl text-yellow-200 font-light">A demo of commonly used RxJS Operators</h2>
+      </div>
+    </div>
+    <div class="flex-grow flex flex-col">
+      <div class="rounded-full h-96 w-96 border mx-auto mt-32 profile-pic">
+      </div>
+      <span class="mx-auto text-center text-4xl text-yellow-200 mt-5">Dru Hiyas</span>
+      <span class="mx-auto text-center text-2xl text-white mt-2 font-extralight">Software Engineer • TrustArc</span>
+    </div>
   </div>
-</div>
-<hr>
-<h3>Pluck</h3><button (click)="runPluck()">Run Test</button>
-<div class="container">
-  <div class="circle m-md" *ngFor="let circle of mergeArray" [ngClass]="circle.color"><span>{{ circle.name }}</span>
+</section>
+<section *ngFor="let op of operatorsInfo | keyvalue: originalOrder"
+  class="flex flex-col align-middle justify-center w-screen h-screen {{ op.value.bgColor }}">
+  <div class="max-w-screen-lg mx-auto">
+    <app-card [title]="op.value.name" [details]="op.value.details" [snippet]="op.value.snippet"
+      [testObservable]="op.value.testObservable" [isDeprecated]="op.value.isDeprecated || false"></app-card>
   </div>
-</div>
-<hr>
-<h3>SwitchMap</h3><button (click)="runSwitchMap()">Run Test</button>
-<div class="container">
-  <div class="circle m-md" *ngFor="let circle of mergeArray" [ngClass]="circle.color"><span>{{ circle.name }}</span>
+</section>
+<section class="w-screen h-screen pt-20 bg-gray-800">
+  <div class="flex w-full">
+    <div class="p-4">
+      <div class="ml-32 mt-32">
+        <h1 class="text-9xl text-white">Questions?</h1>
+        <h2 class="text-5xl text-yellow-200 font-light mt-4">Can! Can! Go ahead!</h2>
+      </div>
+    </div>
+    <div class="flex-grow flex flex-col">
+      <div class="border rounded-lg overflow-hidden mx-auto mt-32">
+        <iframe src="https://giphy.com/embed/O12KhLQPXOFluBcNki" width="480" height="480" frameBorder="0"
+          class="giphy-embed" allowFullScreen></iframe>
+      </div>
+    </div>
   </div>
-</div>
-<hr>
-<h3>ConcatMap</h3><button (click)="runConcatMap()">Run Test</button>
-<div class="container">
-  <div class="circle m-md" *ngFor="let circle of mergeArray" [ngClass]="circle.color"><span>{{ circle.name }}</span>
-  </div>
-</div>
-<hr>
-<h3>MergeMap</h3><button (click)="runMergeMap()">Run Test</button>
-<div class="container">
-  <div class="circle m-md" *ngFor="let circle of mergeArray" [ngClass]="circle.color"><span>{{ circle.name }}</span>
-  </div>
-</div>
-<hr>
-<h3>Tap</h3><button (click)="runTap()">Run Test</button>
-<div class="container">
-  <div class="circle m-md" *ngFor="let circle of mergeArray" [ngClass]="circle.color"><span>{{ circle.name }}</span>
-  </div>
-</div>
-<hr>
-<h3>Debounce Time</h3><button (click)="runDebounceTime()">Run Test</button>
-<div class="container">
-  <div class="circle m-md" *ngFor="let circle of mergeArray" [ngClass]="circle.color"><span>{{ circle.name }}</span>
-  </div>
-</div>
-<hr>
-<h3>Distinct Until Change</h3><button (click)="runDistinctUntilChange()">Run Test</button>
-<div class="container">
-  <div class="circle m-md" *ngFor="let circle of mergeArray" [ngClass]="circle.color"><span>{{ circle.name }}</span>
-  </div>
-</div>
-<hr>
-<h3>Catch Error</h3><button (click)="runCatchError()">Run Test</button>
-<div class="container">
-  <div class="circle m-md" *ngFor="let circle of mergeArray" [ngClass]="circle.color"><span>{{ circle.name }}</span>
-  </div>
-</div>
-<hr> 
-<h3>Merge</h3><button (click)="runMerge()">Run Test</button>
-<div class="container">
-  <div class="circle m-md" *ngFor="let circle of mergeArray" [ngClass]="circle.color"><span>{{ circle.name }}</span>
-  </div>
-</div>
-<hr>
-<h3>Fork Join</h3><button (click)="runForkJoin()">Run Test</button>
-<div class="container">
-  <div class="circle m-md" *ngFor="let circle of forkJoinArray" [ngClass]="circle.color"><span>{{ circle.name }}</span>
-  </div>
-</div>
-<hr>
-<h3>Combine Latest</h3><button (click)="runCombineLatest()">Run Test</button>
-<div class="container">
-  <div class="circle m-md" *ngFor="let circle of combineLatestArray" [ngClass]="circle.color"><span>{{ circle.name
-      }}</span></div>
-</div>
-<hr>
-<h3>Zip</h3><button (click)="runZip()">Run Test</button>
-<div class="container">
-  <div class="circle m-md" *ngFor="let circle of mergeArray" [ngClass]="circle.color"><span>{{ circle.name }}</span>
-  </div>
-</div>
-<hr>
-<h3>Throttle Time</h3><button (click)="runThrottleTime()">Run Test</button>
-<div class="container">
-  <div class="circle m-md" *ngFor="let circle of mergeArray" [ngClass]="circle.color"><span>{{ circle.name }}</span>
-  </div>
-</div>
-<hr>
+</section>
